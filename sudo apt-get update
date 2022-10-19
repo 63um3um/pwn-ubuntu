@@ -1,0 +1,19 @@
+sudo apt-get update
+sudo apt-get install vim git curl libssl-dev libffi-dev build-essential terminator -y
+sudo apt-get install libc6-i386 gcc-multilib -y
+wget https://bootstrap.pypa.io/pip/3.5/get-pip.py -O pip3.py && python3 pip3.py
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py -O pip.py && python pip.py
+git clone https://github.com/pwndbg/pwndbg
+cd pwndbg
+sed -i 's/ python3-pip//g' setup.sh
+sed -i 's/==.*$//g' requirements.txt
+requirements.txt에서 21, 22번째 줄(tomli, unicorn) 삭제
+
+./setup.sh
+sed -i 's/, f\"/, \"/g' ~/pwndbg/pwndbg/commands/context.py
+
+~/pwndbg/pwndbg/lib/abi.py 12번째 줄에서 register_arguments = []로 바꾸기
+~/pwndbg/pwndbg/commands/__init__.py 300번째 줄에서 f"를 "로 바꾸기.
+
+pip install pathlib2
+pip install pwntools
